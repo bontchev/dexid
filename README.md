@@ -471,3 +471,5 @@ Version 1.08	Fixed a bug in the disassembler (only the lower 16 bits of some
 Version 1.09	Switched to using SHA256 instead of MD5 by default.
 		Made the program behave gracefully when neither `dexid.dat`, nor
 		any other database exists at all, instead of throwing an error.
+
+Version 1.10	Was using SHA-1 instead of SHA256. Fixed.
