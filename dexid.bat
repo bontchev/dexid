@@ -62,7 +62,7 @@ my $database_path = "http://dl.dropbox.com/u/34034939/dexid.dat";
 	{
 		$dexid_dat =~ s/\.[^\.]+$/\.dat/;
 	}
-	$main::VERSION = "1.09";
+	$main::VERSION = "1.10";
 	Getopt::Long::Configure ('no_ignore_case', 'auto_version', 'auto_help');
 	GetOptions (
 		"c" => sub { $listcls = 1; $chkdups = 0; $listdb = 0; $silent = 0; $idonly = 0; $update = 0; $verbose = 0; },
@@ -2040,13 +2040,13 @@ sub process_file
 		return if (lc (substr ($buffer, 0, 4)) ne "dex\n");
 		if (! ($silent || $idonly))
 		{
-			$md5 = ($useMD5) ? Digest::MD5->new : Digest::SHA->new;
+			$md5 = ($useMD5) ? Digest::MD5->new : Digest::SHA->new(256);
 			open (APK, "< $filename");
 			binmode (APK);
 			$md5->addfile (*APK);
 			$md5_postfix = " (" . uc ($md5->hexdigest) . "->";
 			close (APK);
-			$md5 = ($useMD5) ? Digest::MD5->new : Digest::SHA->new;
+			$md5 = ($useMD5) ? Digest::MD5->new : Digest::SHA->new(256);
 			$md5->add ($buffer);
 			$md5_postfix .= uc ($md5->hexdigest);
 		}
@@ -2066,7 +2066,7 @@ sub process_file
 		if (! ($silent || $idonly))
 		{
 			seek (DEX, 0, SEEK_SET);
-			$md5 = ($useMD5) ? Digest::MD5->new : Digest::SHA->new;
+			$md5 = ($useMD5) ? Digest::MD5->new : Digest::SHA->new(256);
 			$md5->addfile (*DEX);
 			$md5_postfix = " (" . uc ($md5->hexdigest);
 		}
